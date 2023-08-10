@@ -1,0 +1,6 @@
+include:
+  project: gardenlinux/gardenlinux-package-build
+  file: pipeline/pipeline.yml
+
+variables:
+  SOURCE_NAME: ostree
