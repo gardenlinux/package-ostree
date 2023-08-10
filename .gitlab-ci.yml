@@ -4,3 +4,4 @@ include:
 
 variables:
   SOURCE_NAME: ostree
+  BUILD_ARCH_ALL: "yes"
