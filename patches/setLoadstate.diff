@@ -1,0 +1,13 @@
+Index: deb-pkg-ostree/src/libostree/ostree-sysroot.c
+===================================================================
+--- deb-pkg-ostree.orig/src/libostree/ostree-sysroot.c
++++ deb-pkg-ostree/src/libostree/ostree-sysroot.c
+@@ -1254,6 +1254,8 @@ ostree_sysroot_load_if_changed (OstreeSy
+       return TRUE;
+     }
+ 
++  printf("%s\n", "HACK: Setting self->loadstate = OSTREE_SYSROOT_LOAD_STATE_LOADED;");
++  self->loadstate = OSTREE_SYSROOT_LOAD_STATE_LOADED;
+   g_clear_pointer (&self->deployments, g_ptr_array_unref);
+   g_clear_object (&self->booted_deployment);
+   g_clear_object (&self->staged_deployment);
