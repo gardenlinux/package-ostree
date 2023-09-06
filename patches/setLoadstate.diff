@@ -1,13 +1,49 @@
-Index: deb-pkg-ostree/src/libostree/ostree-sysroot.c
-===================================================================
---- deb-pkg-ostree.orig/src/libostree/ostree-sysroot.c
-+++ deb-pkg-ostree/src/libostree/ostree-sysroot.c
-@@ -1254,6 +1254,8 @@ ostree_sysroot_load_if_changed (OstreeSy
+Subject: Set loadstate
+diff --color -Naur deb-pkg-ostree-orig/src/libostree/ostree-sysroot-deploy.c deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot-deploy.c
+--- deb-pkg-ostree-orig/src/libostree/ostree-sysroot-deploy.c	2023-09-06 16:08:48.148445008 +0200
++++ deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot-deploy.c	2023-09-06 16:17:53.443042607 +0200
+@@ -2514,6 +2514,7 @@
+ static gboolean
+ write_deployments_finish (OstreeSysroot *self, GCancellable *cancellable, GError **error)
+ {
++  printf("%s\n", ">>>DBG>> write_deployments_finish");
+   if (!_ostree_sysroot_bump_mtime (self, error))
+     return FALSE;
+ 
+@@ -3676,6 +3677,7 @@
+                                         GCancellable *cancellable, GError **error)
+ {
+   GLNX_AUTO_PREFIX_ERROR ("Staging deployment", error);
++  printf("%s\n", ">>>DBG>> ostree_sysroot_stage_tree_with_options");
+ 
+   if (!_ostree_sysroot_ensure_writable (self, error))
+     return FALSE;
+diff --color -Naur deb-pkg-ostree-orig/src/libostree/ostree-sysroot.c deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot.c
+--- deb-pkg-ostree-orig/src/libostree/ostree-sysroot.c	2023-09-06 16:08:48.148445008 +0200
++++ deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot.c	2023-09-06 16:13:00.490750225 +0200
+@@ -959,6 +959,7 @@
+ gboolean
+ ostree_sysroot_load (OstreeSysroot *self, GCancellable *cancellable, GError **error)
+ {
++  printf("%s\n", ">>>DBG>> ostree_sysroot_load");
+   return ostree_sysroot_load_if_changed (self, NULL, cancellable, error);
+ }
+ 
+@@ -1229,6 +1230,7 @@
+ ostree_sysroot_load_if_changed (OstreeSysroot *self, gboolean *out_changed,
+                                 GCancellable *cancellable, GError **error)
+ {
++  printf("%s\n", ">>>DBG>> ostree_sysroot_load_if_changed");
+   GLNX_AUTO_PREFIX_ERROR ("loading sysroot", error);
+ 
+   if (!ostree_sysroot_initialize (self, error))
+@@ -1254,6 +1256,9 @@
        return TRUE;
      }
  
-+  printf("%s\n", "HACK: Setting self->loadstate = OSTREE_SYSROOT_LOAD_STATE_LOADED;");
++  printf("%s\n", ">>>DBG>> HACK: Setting self->loadstate = OSTREE_SYSROOT_LOAD_STATE_LOADED;");
 +  self->loadstate = OSTREE_SYSROOT_LOAD_STATE_LOADED;
++
    g_clear_pointer (&self->deployments, g_ptr_array_unref);
    g_clear_object (&self->booted_deployment);
    g_clear_object (&self->staged_deployment);
