@@ -1,6 +1,22 @@
+stages:
+- source
+- build
+- signed source
+- signed build
+- test
+- deploy
+
 include:
-  project: gardenlinux/gardenlinux-package-build
-  file: pipeline/pipeline.yml
+  - local: .gitlab/ci/build.yml
+  - project: gardenlinux/gardenlinux-package-build
+    file:
+      - pipeline/variables.yml
+      - pipeline/workflow.yml
+      - pipeline/source.yml
+      - pipeline/signed-source.yml
+      - pipeline/signed-build.yml
+      - pipeline/test.yml
+      - pipeline/deploy.yml
 
 variables:
   SOURCE_NAME: ostree
