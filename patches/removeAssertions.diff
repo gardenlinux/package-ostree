@@ -1,0 +1,40 @@
+Subject: Remove Assertions for loadstate
+diff --color -Naur deb-pkg-ostree-orig/src/libostree/ostree-sysroot.c deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot.c
+--- deb-pkg-ostree-orig/src/libostree/ostree-sysroot.c	2023-09-06 16:08:48.148445008 +0200
++++ deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot.c	2023-09-06 16:34:04.432152045 +0200
+@@ -1294,7 +1294,7 @@
+ ostree_sysroot_get_booted_deployment (OstreeSysroot *self)
+ {
+   g_assert (self);
+-  g_assert (self->loadstate == OSTREE_SYSROOT_LOAD_STATE_LOADED);
++  // g_assert (self->loadstate == OSTREE_SYSROOT_LOAD_STATE_LOADED);
+ 
+   return self->booted_deployment;
+ }
+@@ -1311,7 +1311,7 @@
+ OstreeDeployment *
+ ostree_sysroot_require_booted_deployment (OstreeSysroot *self, GError **error)
+ {
+-  g_assert (self->loadstate == OSTREE_SYSROOT_LOAD_STATE_LOADED);
++  // g_assert (self->loadstate == OSTREE_SYSROOT_LOAD_STATE_LOADED);
+ 
+   if (!self->booted_deployment)
+     return glnx_null_throw (error, "Not currently booted into an OSTree system");
+@@ -1329,7 +1329,7 @@
+ OstreeDeployment *
+ ostree_sysroot_get_staged_deployment (OstreeSysroot *self)
+ {
+-  g_assert (self->loadstate == OSTREE_SYSROOT_LOAD_STATE_LOADED);
++  // g_assert (self->loadstate == OSTREE_SYSROOT_LOAD_STATE_LOADED);
+ 
+   return self->staged_deployment;
+ }
+@@ -1343,7 +1343,7 @@
+ GPtrArray *
+ ostree_sysroot_get_deployments (OstreeSysroot *self)
+ {
+-  g_assert (self->loadstate == OSTREE_SYSROOT_LOAD_STATE_LOADED);
++  // g_assert (self->loadstate == OSTREE_SYSROOT_LOAD_STATE_LOADED);
+ 
+   GPtrArray *copy = g_ptr_array_new_with_free_func ((GDestroyNotify)g_object_unref);
+   for (guint i = 0; i < self->deployments->len; i++)
