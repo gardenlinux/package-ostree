@@ -2,3 +2,4 @@ enableInstUtil.diff
 setLoadstate.diff
 removeAssertions.diff
 bootComplete.diff
+debugTrace.diff

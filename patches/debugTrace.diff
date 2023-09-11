@@ -1,0 +1,121 @@
+diff --color -Naur deb-pkg-ostree-orig/src/libostree/ostree-sysroot.c deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot.c
+--- deb-pkg-ostree-orig/src/libostree/ostree-sysroot.c	2023-09-06 16:08:48.148445008 +0200
++++ deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot.c	2023-09-11 13:39:39.132503403 +0200
+@@ -959,7 +959,10 @@
+ gboolean
+ ostree_sysroot_load (OstreeSysroot *self, GCancellable *cancellable, GError **error)
+ {
++  printf("%s\n", ">>>DBG>> start ostree_sysroot_load");
+   return ostree_sysroot_load_if_changed (self, NULL, cancellable, error);
++  printf("%s\n", ">>>DBG>> end ostree_sysroot_load");
++
+ }
+ 
+ static gboolean
+@@ -1119,6 +1122,8 @@
+ sysroot_load_from_bootloader_configs (OstreeSysroot *self, GCancellable *cancellable,
+                                       GError **error)
+ {
++  printf("%s\n", ">>>DBG>> start sysroot_load_from_bootloader_configs");
++
+   struct stat stbuf;
+ 
+   int bootversion = 0;
+@@ -1207,12 +1212,16 @@
+       /* Otherwise, the default is FALSE */
+ 
+       self->loadstate = OSTREE_SYSROOT_LOAD_STATE_LOADED;
++      printf("%s\n", ">>>DBG>> self->loadstate = OSTREE_SYSROOT_LOAD_STATE_LOADED");
++
+     }
+ 
+   self->bootversion = bootversion;
+   self->subbootversion = subbootversion;
+   self->deployments = g_steal_pointer (&deployments);
+ 
++  printf("%s\n", ">>>DBG>> start sysroot_load_from_bootloader_configs");
++
+   return TRUE;
+ }
+ 
+@@ -1229,6 +1238,7 @@
+ ostree_sysroot_load_if_changed (OstreeSysroot *self, gboolean *out_changed,
+                                 GCancellable *cancellable, GError **error)
+ {
++  printf("%s\n", ">>>DBG>> start ostree_sysroot_load_if_changed");
+   GLNX_AUTO_PREFIX_ERROR ("loading sysroot", error);
+ 
+   if (!ostree_sysroot_initialize (self, error))
+@@ -1268,6 +1278,8 @@
+   if (out_changed)
+     *out_changed = TRUE;
+   return TRUE;
++
++  printf("%s\n", ">>>DBG>> end ostree_sysroot_load_if_changed");
+ }
+ 
+ int
+diff --color -Naur deb-pkg-ostree-orig/src/ostree/ot-admin-builtin-deploy.c deb-pkg-ostree-working-copy/src/ostree/ot-admin-builtin-deploy.c
+--- deb-pkg-ostree-orig/src/ostree/ot-admin-builtin-deploy.c	2023-09-06 16:08:48.148445008 +0200
++++ deb-pkg-ostree-working-copy/src/ostree/ot-admin-builtin-deploy.c	2023-09-11 12:57:50.930226555 +0200
+@@ -90,14 +90,17 @@
+ ot_admin_builtin_deploy (int argc, char **argv, OstreeCommandInvocation *invocation,
+                          GCancellable *cancellable, GError **error)
+ {
++  printf("%s\n", ">>>DBG>> ot_admin_builtin_deploy");
+   g_autoptr (GOptionContext) context = g_option_context_new ("REFSPEC");
+ 
+   g_autoptr (OstreeSysroot) sysroot = NULL;
++  printf("%s\n", ">>>DBG>> before ostree_admin_option_context_parse");
+   if (!ostree_admin_option_context_parse (context, options, &argc, &argv,
+                                           OSTREE_ADMIN_BUILTIN_FLAG_SUPERUSER, invocation, &sysroot,
+                                           cancellable, error))
+     return FALSE;
+ 
++  printf("%s\n", ">>>DBG>> after ostree_admin_option_context_parse");
+   if (argc < 2)
+     {
+       ot_util_usage_error (context, "REF/REV must be specified", error);
+diff --color -Naur deb-pkg-ostree-orig/src/ostree/ot-main.c deb-pkg-ostree-working-copy/src/ostree/ot-main.c
+--- deb-pkg-ostree-orig/src/ostree/ot-main.c	2023-09-06 16:08:48.152444851 +0200
++++ deb-pkg-ostree-working-copy/src/ostree/ot-main.c	2023-09-11 13:36:00.888534342 +0200
+@@ -554,6 +554,7 @@
+ ostree_admin_sysroot_load (OstreeSysroot *sysroot, OstreeAdminBuiltinFlags flags,
+                            GCancellable *cancellable, GError **error)
+ {
++  printf("%s\n", ">>>DBG>> start ostree_admin_sysroot_load");
+   if ((flags & OSTREE_ADMIN_BUILTIN_FLAG_UNLOCKED) == 0)
+     {
+       /* Set up the mount namespace, if applicable */
+@@ -583,6 +584,8 @@
+         }
+     }
+ 
++  printf("%s\n", ">>>DBG>> end ostree_admin_sysroot_load");
++
+   return TRUE;
+ }
+ 
+@@ -592,6 +595,7 @@
+                                    OstreeCommandInvocation *invocation, OstreeSysroot **out_sysroot,
+                                    GCancellable *cancellable, GError **error)
+ {
++  printf("%s\n", ">>>DBG>> start ostree_admin_option_context_parse");
+   /* Entries are listed in --help output in the order added.  We add the
+    * main entries ourselves so that we can add the --sysroot entry first. */
+ 
+@@ -617,11 +621,14 @@
+     return FALSE;
+   g_signal_connect (sysroot, "journal-msg", G_CALLBACK (on_sysroot_journal_msg), NULL);
+ 
++  printf("%s\n", ">>>DBG>> trace (opt_print_current_dir || (flags & OSTREE_ADMIN_BUILTIN_FLAG_NO_LOAD) == 0)");
+   if (opt_print_current_dir || (flags & OSTREE_ADMIN_BUILTIN_FLAG_NO_LOAD) == 0)
+     {
++      printf("%s\n", ">>>DBG>> trace ostree_admin_sysroot_load");
+       if (!ostree_admin_sysroot_load (sysroot, flags, cancellable, error))
+         return FALSE;
+     }
++    printf("%s\n", ">>>DBG>> after ostree_admin_sysroot_load");
+ 
+   if (opt_print_current_dir)
+     {
