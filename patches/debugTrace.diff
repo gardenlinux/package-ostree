@@ -1,6 +1,6 @@
 diff --color -Naur deb-pkg-ostree-orig/src/libostree/ostree-sysroot.c deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot.c
 --- deb-pkg-ostree-orig/src/libostree/ostree-sysroot.c	2023-09-06 16:08:48.148445008 +0200
-+++ deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot.c	2023-09-11 13:39:39.132503403 +0200
++++ deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot.c	2023-09-11 13:43:31.043021872 +0200
 @@ -959,7 +959,10 @@
  gboolean
  ostree_sysroot_load (OstreeSysroot *self, GCancellable *cancellable, GError **error)
@@ -57,7 +57,7 @@ diff --color -Naur deb-pkg-ostree-orig/src/libostree/ostree-sysroot.c deb-pkg-os
  int
 diff --color -Naur deb-pkg-ostree-orig/src/ostree/ot-admin-builtin-deploy.c deb-pkg-ostree-working-copy/src/ostree/ot-admin-builtin-deploy.c
 --- deb-pkg-ostree-orig/src/ostree/ot-admin-builtin-deploy.c	2023-09-06 16:08:48.148445008 +0200
-+++ deb-pkg-ostree-working-copy/src/ostree/ot-admin-builtin-deploy.c	2023-09-11 12:57:50.930226555 +0200
++++ deb-pkg-ostree-working-copy/src/ostree/ot-admin-builtin-deploy.c	2023-09-11 13:43:31.047021659 +0200
 @@ -90,14 +90,17 @@
  ot_admin_builtin_deploy (int argc, char **argv, OstreeCommandInvocation *invocation,
                           GCancellable *cancellable, GError **error)
@@ -78,7 +78,7 @@ diff --color -Naur deb-pkg-ostree-orig/src/ostree/ot-admin-builtin-deploy.c deb-
        ot_util_usage_error (context, "REF/REV must be specified", error);
 diff --color -Naur deb-pkg-ostree-orig/src/ostree/ot-main.c deb-pkg-ostree-working-copy/src/ostree/ot-main.c
 --- deb-pkg-ostree-orig/src/ostree/ot-main.c	2023-09-06 16:08:48.152444851 +0200
-+++ deb-pkg-ostree-working-copy/src/ostree/ot-main.c	2023-09-11 13:36:00.888534342 +0200
++++ deb-pkg-ostree-working-copy/src/ostree/ot-main.c	2023-09-11 13:43:31.047021659 +0200
 @@ -554,6 +554,7 @@
  ostree_admin_sysroot_load (OstreeSysroot *sysroot, OstreeAdminBuiltinFlags flags,
                             GCancellable *cancellable, GError **error)
