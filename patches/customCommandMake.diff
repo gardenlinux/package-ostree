@@ -1,0 +1,10 @@
+--- deb-pkg-ostree-orig/Makefile-ostree.am	2023-09-06 16:08:48.120446108 +0200
++++ deb-pkg-ostree-working-copy/Makefile-ostree.am	2023-09-12 15:51:28.641906564 +0200
+@@ -45,6 +45,7 @@
+ 	src/ostree/ot-builtin-summary.c \
+ 	src/ostree/ot-builtin-show.c \
+ 	src/ostree/ot-builtin-static-delta.c \
++	src/ostree/ot-builtin-hello-ostree.c \
+ 	src/ostree/ot-main.h \
+ 	src/ostree/ot-main.c \
+ 	src/ostree/ot-dump.h \
