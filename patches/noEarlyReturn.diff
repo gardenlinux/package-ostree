@@ -1,0 +1,28 @@
+Subject: No early return
+diff --color -Naur deb-pkg-ostree-orig/src/libostree/ostree-sysroot.c deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot.c
+--- deb-pkg-ostree-orig/src/libostree/ostree-sysroot.c	2023-09-06 16:08:48.148445008 +0200
++++ deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot.c	2023-09-18 15:59:26.215211412 +0200
+@@ -1245,14 +1245,15 @@
+   if (!glnx_fstatat (self->sysroot_fd, "ostree/deploy", &stbuf, 0, error))
+     return FALSE;
+
+-  if (self->loaded_ts.tv_sec == stbuf.st_mtim.tv_sec
+-      && self->loaded_ts.tv_nsec == stbuf.st_mtim.tv_nsec)
+-    {
+-      if (out_changed)
+-        *out_changed = FALSE;
+-      /* Note early return */
+-      return TRUE;
+-    }
++//  if (self->loaded_ts.tv_sec == stbuf.st_mtim.tv_sec
++//      && self->loaded_ts.tv_nsec == stbuf.st_mtim.tv_nsec)
++//    {
++//      if (out_changed)
++//        *out_changed = FALSE;
++//      /* Note early return */
++//      return TRUE;
++//    }
++
+
+   g_clear_pointer (&self->deployments, g_ptr_array_unref);
+   g_clear_object (&self->booted_deployment);
