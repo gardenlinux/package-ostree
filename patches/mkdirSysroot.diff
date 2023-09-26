@@ -7,7 +7,7 @@ diff --color -Naur deb-pkg-ostree-orig/src/switchroot/ostree-prepare-root.c deb-
     */
 +
 +  if (mkdirat (AT_FDCWD, "sysroot", 0755) < 0)
-+    err (EXIT_FAILURE, "Failed to create %s", "sysroot");
++    g_print (">>>DBG>>: Failed to create %s", "sysroot");
 +
    if (mount (root_mountpoint, "sysroot", NULL, MS_MOVE | MS_SILENT, NULL) < 0)
      err (EXIT_FAILURE, "failed to MS_MOVE '%s' to 'sysroot'", root_mountpoint);
