@@ -5,7 +5,7 @@ diff --color -Naur deb-pkg-ostree-orig/src/libostree/ostree-sysroot-upgrader.c d
          return FALSE;
      }
  
-+  g_print ("\n>>>DBG: from_revision: %s")\n", from_revision);
++  g_print ("\n>>>DBG: from_revision: %s\n", from_revision);
 +  g_print (">>>DBG: new_revision: %s)\n\n", self->new_revision);
    if (g_strcmp0 (from_revision, self->new_revision) == 0)
      {
