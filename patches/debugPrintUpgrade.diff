@@ -1,7 +1,7 @@
 diff --color -Naur deb-pkg-ostree-orig/src/libostree/ostree-sysroot-upgrader.c deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot-upgrader.c
 --- deb-pkg-ostree-orig/src/libostree/ostree-sysroot-upgrader.c	2023-09-06 16:08:48.148445008 +0200
 +++ deb-pkg-ostree-working-copy/src/libostree/ostree-sysroot-upgrader.c	2023-09-20 11:30:26.197032024 +0200
-@@ -562,6 +562,7 @@
+@@ -562,6 +562,8 @@
          return FALSE;
      }
  
