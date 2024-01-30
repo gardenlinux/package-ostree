@@ -1,2 +1,1 @@
-debugPrintUpgrade.diff
-mkdirSysroot.diff
+add_patches.patch
