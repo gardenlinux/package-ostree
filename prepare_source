@@ -1,2 +1,3 @@
 apt_src ostree
 apply_patches
+version_suffix=gardenlinux0
